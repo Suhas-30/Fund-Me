@@ -12,7 +12,6 @@ contract FundMe {
     mapping(address => uint256) private s_addressToAmountFunded;
     address[] private s_funders;
 
-
     address private /* immutable */ i_owner;
     uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
     AggregatorV3Interface private s_priceFeed;
@@ -29,12 +28,10 @@ contract FundMe {
     }
 
     function getVersion() public view returns (uint256) {
-        
         return s_priceFeed.version();
     }
 
     modifier onlyOwner() {
-
         if (msg.sender != i_owner) revert NotOwner();
         _;
     }
@@ -50,7 +47,6 @@ contract FundMe {
         require(callSuccess, "Call failed");
     }
 
-
     fallback() external payable {
         fund();
     }
@@ -59,16 +55,15 @@ contract FundMe {
         fund();
     }
 
-    function getAddressToAmountFunded(address fundingAddress) external view returns(uint256){
+    function getAddressToAmountFunded(address fundingAddress) external view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
     }
 
-    function getFunder(uint256 index) external view returns(address){
+    function getFunder(uint256 index) external view returns (address) {
         return s_funders[index];
     }
 
-    function getOwner() external view returns(address){
+    function getOwner() external view returns (address) {
         return i_owner;
     }
 }
-
